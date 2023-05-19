@@ -22,6 +22,12 @@ function App() {
     setIsEditAvatarPopupOpen(true)
   }
 
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false)
+    setAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+  }
+
   return (
     <div className="root">
     <div className="page">
@@ -37,6 +43,7 @@ function App() {
           title="Редактировать профиль"
           button="Сохранить"
           isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
         >
           <input
               type="text"
@@ -66,6 +73,7 @@ function App() {
           title="Обновить аватар"
           button="Сохранить"
           isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
         >
           <input
               type="url"
@@ -82,6 +90,7 @@ function App() {
           title="Новое место"
           button="Создать"
           isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
         >
           <input
               type="text"
@@ -108,6 +117,7 @@ function App() {
           name="confirm"
           title="Вы уверены?"
           button="Да"
+          onClose={closeAllPopups}
         ></PopupWithForm>
         <ImagePopup></ImagePopup>
       </div>
