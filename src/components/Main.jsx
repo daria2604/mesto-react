@@ -1,24 +1,17 @@
 import React from "react"
 import avatar from "../images/avatar.jpg"
 
-function Main() {
-  function handleEditProfileClick() {
-    document.querySelector('.popup_type_edit').classList.add('popup_opened')
-  }
-
-  function handleAddPlaceClick() {
-    document.querySelector('.popup_type_add').classList.add('popup_opened')
-  }
-
-  function handleEditAvatarClick() {
-    document.querySelector('.popup_type_avatar').classList.add('popup_opened')
-  }
-
+function Main(props) {
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <button className="button button_action_edit-avatar" type="button" onClick={handleEditAvatarClick}/>
+          <button
+            className="button button_action_edit-avatar"
+            type="button"
+            onClick={() => {
+              props.onEditAvatar(true)}
+            }/>
           <img
             src={avatar}
             alt="Аватар"
@@ -28,11 +21,21 @@ function Main() {
         <div className="profile__info">
           <div className="profile__title">
             <h1 className="profile__name">Жак-Ив Кусто</h1>
-            <button className="button button_action_edit" type="button" onClick={handleEditProfileClick}/>
+            <button
+              className="button button_action_edit"
+              type="button"
+              onClick={() => {
+                props.onEditProfile(true)}
+              }/>
           </div>
           <p className="profile__about">Исследователь океана</p>
         </div>
-        <button className="button button_action_add" type="button" onClick={handleAddPlaceClick}/>
+        <button
+          className="button button_action_add"
+          type="button"
+          onClick={() => {
+            props.onAddPlace(true)
+          }}/>
       </section>
       <section className="gallery">
         <div className="cards">

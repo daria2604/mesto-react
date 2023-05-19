@@ -1,8 +1,8 @@
 import React from "react"
 
-function PopupWithForm({name, title, button, ...props}) {
+function PopupWithForm({name, title, button, isOpen, ...props}) {
   return (
-    <div className={`popup popup_type_${name}`}>
+    <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
           <div className="popup__container">
             <button className="button button_action_close" type="button"/>
             <form
@@ -25,6 +25,5 @@ function PopupWithForm({name, title, button, ...props}) {
         </div>
   )
 };
-
 
 export default PopupWithForm;
