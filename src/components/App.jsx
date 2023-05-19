@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
 
@@ -85,16 +86,7 @@ function App() {
             title="Вы уверены?"
             button="Да"
           ></PopupWithForm>
-
-        {/* <div className="popup popup_type_image">
-          <div className="popup__container">
-            <button className="button button_action_close" type="button" />
-            <div className="popup__wrap">
-              <img className="popup__image" alt="#" src="#" />
-              <p className="popup__caption" />
-            </div>
-          </div>
-        </div> */}
+          <ImagePopup></ImagePopup>
         </div>
     </div>
   );
