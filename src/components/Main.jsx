@@ -1,7 +1,33 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import avatar from "../images/avatar.jpg"
+import api from "../utils/Api.js"
 
 function Main(props) {
+  const [userName, setUserName] = useState('')
+  const [userDescription, setUserDescription] = useState('')
+  const [userAvatar, setUserAvatar] = useState('')
+  const [userInfo, setUserInfo] = useState([])
+
+  useEffect(() => {
+    api.getUserInfo(userInfo)
+    .then(data => {
+      setUserName(() => {
+        return data.name
+      })
+      setUserDescription(() => {
+        return data.about
+      })
+      setUserAvatar(() => {
+        return data.avatar
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+
+
+
   return (
     <main className="content">
       <section className="profile">
@@ -13,14 +39,14 @@ function Main(props) {
               props.onEditAvatar(true)}
             }/>
           <img
-            src={avatar}
+            src={userAvatar}
             alt="Аватар"
             className="profile__avatar"
           />
         </div>
         <div className="profile__info">
           <div className="profile__title">
-            <h1 className="profile__name">Жак-Ив Кусто</h1>
+            <h1 className="profile__name">{userName}</h1>
             <button
               className="button button_action_edit"
               type="button"
@@ -28,7 +54,7 @@ function Main(props) {
                 props.onEditProfile(true)}
               }/>
           </div>
-          <p className="profile__about">Исследователь океана</p>
+          <p className="profile__about">{userDescription}</p>
         </div>
         <button
           className="button button_action_add"
