@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
-import avatar from "../images/avatar.jpg"
 import api from "../utils/Api.js"
+import Card from "./Card"
 
 function Main(props) {
   const [userName, setUserName] = useState('')
   const [userDescription, setUserDescription] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
-  const [userInfo, setUserInfo] = useState([])
+  const [cards, setCards] = useState([])
 
   useEffect(() => {
-    api.getUserInfo(userInfo)
+    api.getUserInfo()
     .then(data => {
       setUserName(() => {
         return data.name
@@ -24,9 +24,17 @@ function Main(props) {
     .catch(err => {
       console.log(err)
     })
-  })
+  }, [])
 
-
+  useEffect(() => {
+    api.getInitialCards()
+    .then(data => {
+      setCards(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, [])
 
   return (
     <main className="content">
@@ -65,7 +73,10 @@ function Main(props) {
       </section>
       <section className="gallery">
         <div className="cards">
-          <template id="cardTemplate" />
+            {cards.map(card => (
+              <Card key={card._id}{...card} />
+              ))
+            }
         </div>
       </section>
     </main>
