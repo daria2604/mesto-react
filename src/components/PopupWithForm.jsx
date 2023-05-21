@@ -7,9 +7,7 @@ function PopupWithForm({name, title, button, isOpen, onClose, ...props}) {
         <button
           className="button button_action_close"
           type="button"
-          onClick={() => {
-            onClose(true)
-          }}/>
+          onClick={onClose}/>
         <form
           className={`popup__form popup__form_type_${name}`}
           name={`${name}Form`}

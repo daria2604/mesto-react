@@ -9,6 +9,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState({})
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -26,6 +27,7 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
+    setSelectedCard({})
   }
 
   return (
@@ -36,6 +38,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onEditAvatar={handleEditAvatarClick}
           onAddPlace={handleAddPlaceClick}
+          onCardClick={setSelectedCard}
         />
         <Footer/>
         <PopupWithForm
@@ -119,7 +122,10 @@ function App() {
           button="Да"
           onClose={closeAllPopups}
         ></PopupWithForm>
-        <ImagePopup></ImagePopup>
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+        />
       </div>
     </div>
   );

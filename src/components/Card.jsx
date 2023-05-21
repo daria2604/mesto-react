@@ -1,6 +1,10 @@
 import React from "react"
 
-function Card(card) {
+function Card({ card, onCardClick }) {
+  function handleClick() {
+    onCardClick(card)
+  }
+
   return (
     <div className="card">
     <button className="button button_action_delete" type="button" />
@@ -8,6 +12,7 @@ function Card(card) {
       className="card__image"
       alt={card.name}
       src={card.link}
+      onClick={handleClick}
     />
     <div className="card__info">
       <h2 className="card__title">{card.name}</h2>
