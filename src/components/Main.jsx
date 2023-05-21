@@ -43,9 +43,7 @@ function Main(props) {
           <button
             className="button button_action_edit-avatar"
             type="button"
-            onClick={() => {
-              props.onEditAvatar(true)}
-            }/>
+            onClick={props.onEditAvatar}/>
           <img
             src={userAvatar}
             alt="Аватар"
@@ -58,18 +56,14 @@ function Main(props) {
             <button
               className="button button_action_edit"
               type="button"
-              onClick={() => {
-                props.onEditProfile(true)}
-              }/>
+              onClick={props.onEditProfile}/>
           </div>
           <p className="profile__about">{userDescription}</p>
         </div>
         <button
           className="button button_action_add"
           type="button"
-          onClick={() => {
-            props.onAddPlace(true)
-          }}/>
+          onClick={props.onAddPlace}/>
       </section>
       <section className="gallery">
         <div className="cards">
