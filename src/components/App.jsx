@@ -79,6 +79,17 @@ function App() {
     }
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards(state =>
+        state.filter(item => item._id !== card._id))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div className="root">
       <div className="page">
@@ -91,6 +102,7 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
           <Footer />
           <PopupWithForm
