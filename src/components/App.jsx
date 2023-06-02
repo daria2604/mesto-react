@@ -114,6 +114,17 @@ function App() {
     })
   }
 
+  function handleAddPlaceSubmit(newCard) {
+    api.addCard(newCard)
+    .then(card => {
+      setCards([card, ...cards])
+      closeAllPopups()
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div className="root">
       <div className="page">
@@ -142,6 +153,7 @@ function App() {
          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
          />
           <PopupWithForm
             name="confirm"
