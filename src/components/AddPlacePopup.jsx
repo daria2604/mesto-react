@@ -5,6 +5,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [title, setTitle] = React.useState('')
   const [link, setLink] = React.useState('')
 
+  React.useEffect(() => {
+    setTitle('')
+    setLink('')
+  }, [isOpen])
+
   function handleTitleChange(evt) {
     setTitle(evt.target.value)
   }
@@ -34,7 +39,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         name="title"
         minLength={2}
         maxLength={30}
-        defaultValue=""
+        value={title}
         onChange={handleTitleChange}
         required
       />
@@ -44,7 +49,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         placeholder="Ссылка на картинку"
         className="popup__input popup__input_type_link"
         name="link"
-        defaultValue=""
+        value={link}
         onChange={handleLinkChange}
         required
       />
