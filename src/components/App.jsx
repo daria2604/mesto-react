@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -16,9 +17,8 @@ function App() {
   const [cards, setCards] = useState([])
 
   useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
+    api.getUserInfo()
+      .then(data => {
         setCurrentUser(data);
       })
       .catch((err) => {
@@ -90,6 +90,17 @@ function App() {
     })
   }
 
+  function handleUpdateUser(userInfo) {
+    api.updateUserInfo(userInfo)
+    .then((data) => {
+      setCurrentUser(data)
+      closeAllPopups()
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div className="root">
       <div className="page">
@@ -105,36 +116,11 @@ function App() {
             onCardDelete={handleCardDelete}
           />
           <Footer />
-          <PopupWithForm
-            name="edit"
-            title="Редактировать профиль"
-            button="Сохранить"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              type="text"
-              placeholder="Имя"
-              className="popup__input popup__input_type_name"
-              name="name"
-              minLength={2}
-              maxLength={40}
-              defaultValue=""
-              required=""
-            />
-            <span className="popup__input-error popup__input-error_type_name" />
-            <input
-              type="text"
-              placeholder="О себе"
-              className="popup__input popup__input_type_about"
-              name="about"
-              minLength={2}
-              maxLength={200}
-              defaultValue=""
-              required=""
-            />
-            <span className="popup__input-error popup__input-error_type_about" />
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          />
           <PopupWithForm
             name="avatar"
             title="Обновить аватар"

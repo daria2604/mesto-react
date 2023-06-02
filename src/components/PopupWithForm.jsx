@@ -1,6 +1,6 @@
 import React from "react"
 
-function PopupWithForm({name, title, button, isOpen, onClose, ...props}) {
+function PopupWithForm({ name, title, button, isOpen, onClose, onSubmit, ...props }) {
   return (
     <div className={`popup ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
@@ -12,6 +12,7 @@ function PopupWithForm({name, title, button, isOpen, onClose, ...props}) {
           className={`popup__form popup__form_type_${name}`}
           name={`${name}Form`}
           autoComplete="off"
+          onSubmit={onSubmit}
         >
           <h3 className={`popup__heading popup__heading_type_${name}`}>
             {title}
