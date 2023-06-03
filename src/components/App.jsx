@@ -57,6 +57,10 @@ function App() {
     setSelectedCard({});
   }
 
+  function closeOnOverlay(evt) {
+    evt.currentTarget === evt.target && closeAllPopups()
+  }
+
   function handleCardLike(card) {
     const isLiked = card.likes.some(user => user._id === currentUser._id)
 
@@ -144,16 +148,19 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+            onOverlay={closeOnOverlay}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            onOverlay={closeOnOverlay}
           />
          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            onOverlay={closeOnOverlay}
          />
           <PopupWithForm
             name="confirm"
@@ -161,7 +168,11 @@ function App() {
             button="Да"
             onClose={closeAllPopups}
           ></PopupWithForm>
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups}
+            onOverlay={closeOnOverlay}
+          />
         </CurrentUserContext.Provider>
       </div>
     </div>
