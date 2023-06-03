@@ -4,17 +4,19 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import ImagePopup from "./ImagePopup";
-import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import PopupWithConfirmation from "./PopupWithConfirmation";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+  const [isPopupWithConfirmationOpen, setIsPopupWithConfirmationOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({})
+  const [deletedCard, setDeletedCard] = React.useState({})
   const [currentUser, setCurrentUser] = React.useState({})
   const [cards, setCards] = React.useState([])
 
@@ -62,10 +64,12 @@ function App() {
   }
 
   function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setSelectedCard({});
+    setIsEditProfilePopupOpen(false)
+    setAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+    setIsPopupWithConfirmationOpen(false)
+    setSelectedCard({})
+    setDeletedCard({})
   }
 
   function closeOnOverlay(evt) {
@@ -101,6 +105,7 @@ function App() {
     .then(() => {
       setCards(state =>
         state.filter(item => item._id !== card._id))
+        closeAllPopups()
     })
     .catch(err => {
       console.log(err)
@@ -152,7 +157,8 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onCardDelete={setDeletedCard}
+            onConfirmationPopup={setIsPopupWithConfirmationOpen}
           />
           <Footer />
           <EditProfilePopup
@@ -167,17 +173,18 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
             onOverlay={closeOnOverlay}
           />
-         <AddPlacePopup
+          <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
             onOverlay={closeOnOverlay}
-         />
-          <PopupWithForm
-            name="confirm"
-            title="Вы уверены?"
-            button="Да"
+          />
+          <PopupWithConfirmation
+            card={deletedCard}
+            isOpen={isPopupWithConfirmationOpen}
             onClose={closeAllPopups}
+            onOverlay={closeOnOverlay}
+            onConfirm={handleCardDelete}
           />
           <ImagePopup
             card={selectedCard}
