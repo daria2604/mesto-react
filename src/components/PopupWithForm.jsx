@@ -4,7 +4,7 @@ function PopupWithForm({ name, title, button, isOpen, onClose, onSubmit, onOverl
   return (
     <div
       className={`popup ${isOpen ? 'popup_opened' : ''}`}
-      onClick={onOverlay}
+      onMouseDown={onOverlay}
     >
       <div className="popup__container">
         <button

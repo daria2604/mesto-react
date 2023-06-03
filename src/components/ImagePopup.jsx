@@ -4,7 +4,7 @@ function ImagePopup({ card, onClose, onOverlay }) {
   return (
     <div
       className={`popup popup_type_image ${card.link ? 'popup_opened' : ''}`}
-      onClick={onOverlay}
+      onMouseDown={onOverlay}
     >
     <div className="popup__container">
       <button

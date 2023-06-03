@@ -11,11 +11,11 @@ import AddPlacePopup from "./AddPlacePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState({})
+  const [currentUser, setCurrentUser] = React.useState({})
   const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [])
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -36,6 +36,17 @@ function App() {
     .catch(err => {
       console.log(err)
     })
+  }, [])
+
+  React.useEffect(() => {
+    const handleEsc = (evt) => {
+      evt.key === 'Escape' && closeAllPopups()
+    }
+    document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
   }, [])
 
   function handleEditProfileClick() {
@@ -167,7 +178,7 @@ function App() {
             title="Вы уверены?"
             button="Да"
             onClose={closeAllPopups}
-          ></PopupWithForm>
+          />
           <ImagePopup
             card={selectedCard}
             onClose={closeAllPopups}
