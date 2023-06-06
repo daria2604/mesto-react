@@ -1,33 +1,34 @@
-import React from "react"
+import React from "react";
+import { Oval } from "react-loader-spinner";
 import PopupWithForm from "./PopupWithForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, onOverlay }) {
-  const [title, setTitle] = React.useState('')
-  const [link, setLink] = React.useState('')
+function AddPlacePopup({ isOpen, onClose, onAddPlace, onOverlay, onLoading }) {
+  const [title, setTitle] = React.useState("");
+  const [link, setLink] = React.useState("");
 
   React.useEffect(() => {
-    setTitle('')
-    setLink('')
-  }, [isOpen])
+    setTitle("");
+    setLink("");
+  }, [isOpen]);
 
   function handleTitleChange(evt) {
-    setTitle(evt.target.value)
+    setTitle(evt.target.value);
   }
 
   function handleLinkChange(evt) {
-    setLink(evt.target.value)
+    setLink(evt.target.value);
   }
 
   function handleSubmit(evt) {
-    evt.preventDefault()
-    onAddPlace({ title, link })
+    evt.preventDefault();
+    onAddPlace({ title, link });
   }
 
   return (
     <PopupWithForm
       name="add"
       title="Новое место"
-      button="Создать"
+      button={onLoading ? `Сохранение...` : `Сохранить`}
       isOpen={isOpen}
       onClose={onClose}
       onOverlay={onOverlay}
@@ -56,7 +57,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, onOverlay }) {
       />
       <span className="popup__input-error popup__input-error_type_link" />
     </PopupWithForm>
-  )
-};
+  );
+}
 
 export default AddPlacePopup;

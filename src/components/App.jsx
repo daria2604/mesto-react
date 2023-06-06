@@ -1,5 +1,6 @@
 import React from "react";
 import api from "../utils/Api";
+import { TailSpin } from "react-loader-spinner";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
@@ -19,6 +20,7 @@ function App() {
   const [deletedCard, setDeletedCard] = React.useState({})
   const [currentUser, setCurrentUser] = React.useState({})
   const [cards, setCards] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -113,6 +115,7 @@ function App() {
   }
 
   function handleUpdateUser(userInfo) {
+    setIsLoading(true)
     api.updateUserInfo(userInfo)
     .then(data => {
       setCurrentUser(data)
@@ -120,6 +123,9 @@ function App() {
     })
     .catch(err => {
       console.log(err)
+    })
+    .finally(() => {
+      setIsLoading(false)
     })
   }
 
@@ -135,6 +141,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit(newCard) {
+    setIsLoading(true)
     api.addCard(newCard)
     .then(card => {
       setCards([card, ...cards])
@@ -142,6 +149,9 @@ function App() {
     })
     .catch(err => {
       console.log(err)
+    })
+    .finally(() => {
+      setIsLoading(false)
     })
   }
 
@@ -166,18 +176,21 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
             onOverlay={closeOnOverlay}
+            onLoading={isLoading}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
             onOverlay={closeOnOverlay}
+            onLoading={isLoading}
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
             onOverlay={closeOnOverlay}
+            onLoading={isLoading}
           />
           <PopupWithConfirmation
             card={deletedCard}

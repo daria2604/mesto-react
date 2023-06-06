@@ -1,8 +1,9 @@
 import React from "react"
+import { Oval } from "react-loader-spinner"
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import PopupWithForm from "./PopupWithForm"
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOverlay }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOverlay, onLoading }) {
   const [name, setName] = React.useState('')
   const [about, setAbout] = React.useState('')
   const currentUser = React.useContext(CurrentUserContext)
@@ -29,7 +30,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onOverlay }) {
     <PopupWithForm
       name="edit"
       title="Редактировать профиль"
-      button="Сохранить"
+      button={onLoading ? `Сохранение...` : `Сохранить`}
       isOpen={isOpen}
       onClose={onClose}
       onOverlay={onOverlay}

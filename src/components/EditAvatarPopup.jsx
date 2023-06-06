@@ -1,7 +1,8 @@
 import React from "react"
+import { Oval } from "react-loader-spinner";
 import PopupWithForm from "./PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay, onLoading }) {
   const avatarRef = React.useRef()
 
   React.useEffect(() => {
@@ -17,7 +18,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay }) {
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
-      button="Сохранить"
+      button={onLoading ? `Сохранение...` : `Сохранить`}
       isOpen={isOpen}
       onClose={onClose}
       onOverlay={onOverlay}
