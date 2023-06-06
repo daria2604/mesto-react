@@ -1,14 +1,16 @@
 import React from "react"
+import { useForm } from "react-hook-form"
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay }) {
   const avatarRef = React.useRef()
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onTouched' })
 
-  React.useEffect(() => {
-    avatarRef.current.value = ''
-  }, [isOpen])
+  // React.useEffect(() => {
+  //   avatarRef.current.value = ''
+  // }, [isOpen])
 
-  function handleSubmit(evt) {
+  function handleFormSubmit(evt) {
     evt.preventDefault()
     onUpdateAvatar({ avatar: avatarRef.current.value })
   }
@@ -21,18 +23,20 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay }) {
       isOpen={isOpen}
       onClose={onClose}
       onOverlay={onOverlay}
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <input
         type="url"
         placeholder="Ссылка на картинку"
         className="popup__input popup__input_type_avatar"
         name="avatar-link"
-        defaultValue=""
-        required=""
         ref={avatarRef}
+        {...register('url', ({
+          required: 'Введите ссылку на изображение',
+          pattern: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+        }))}
       />
-      <span className="popup__input-error popup__input-error_type_avatar-link" />
+      { errors.url ? <span className="popup__input-error">{errors.url?.message}</span>  : <span className="popup__input-error" />}
     </PopupWithForm>
   )
 };
