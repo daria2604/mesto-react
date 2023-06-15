@@ -1,5 +1,4 @@
 import React from "react"
-import { Oval } from "react-loader-spinner"
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import PopupWithForm from "./PopupWithForm"
 

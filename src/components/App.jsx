@@ -1,6 +1,5 @@
 import React from "react";
 import api from "../utils/Api";
-import { TailSpin } from "react-loader-spinner";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";

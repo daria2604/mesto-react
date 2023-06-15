@@ -1,5 +1,4 @@
 import React from "react";
-import { Oval } from "react-loader-spinner";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, onOverlay, onLoading }) {

@@ -1,5 +1,4 @@
 import React from "react"
-import { Oval } from "react-loader-spinner";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onOverlay, onLoading }) {
